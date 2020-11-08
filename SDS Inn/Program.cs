@@ -28,7 +28,21 @@ namespace SDS_Inn
                 {
                     if (item.Name != "Sulfuras")
                     {
-                        item.Quality = item.Quality - 1;
+                        if (item.Name != "Conjured")
+                        {
+                            item.Quality = item.Quality - 1;
+                        }
+                        else
+                        {
+                            if (item.Quality == 1)
+                            {
+                                item.Quality = 0;
+                            }
+                            else
+                            {
+                                item.Quality = item.Quality - 2;
+                            }
+                        }
                     }
                 }
             }
