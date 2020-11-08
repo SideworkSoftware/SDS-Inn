@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SDS_Inn
+﻿namespace SDS_Inn
 {
     public class Item
     {

@@ -8,6 +8,7 @@ namespace SDS_Inn_Test
     {
         private IList<Item>[] ItemByDayDexVest;
 
+
         private Item DexVestDay0;
         private Item DexVestDay5;
 
@@ -25,9 +26,11 @@ namespace SDS_Inn_Test
 
         private Item NormalItemDay0;
         private Item NormalItemDay5;
-        
 
-
+        private Item ConjuredDay0;
+        private Item ConjuredDay1;
+        private Item ConjuredDay2;
+        private Item ConjuredDay5;
 
         [SetUp]
         public void Setup()
@@ -51,8 +54,13 @@ namespace SDS_Inn_Test
             NormalItemDay0 = new Item { Name = "Normal Item", Quality = 10, SellIn = 10 };
             NormalItemDay5 = new Item { Name = "Normal Item", Quality = 5, SellIn = 5 };
 
+            ConjuredDay0 = new Item { Name = "Conjured", Quality = 6, SellIn = 3 };
+            ConjuredDay1 = new Item { Name = "Conjured", Quality = 4, SellIn = 2 };
+            ConjuredDay2 = new Item { Name = "Conjured", Quality = 2, SellIn = 1 };
+            ConjuredDay5 = new Item { Name = "Conjured", Quality = 0, SellIn = -2 };
+
         }
-        
+
         [Test]
         public void Test1()
         {
@@ -116,7 +124,6 @@ namespace SDS_Inn_Test
 
             Assert.AreEqual(expected.Quality, actual.Quality);
             Assert.AreEqual(expected.SellIn, actual.SellIn);
-
         }
 
         [Test]
@@ -129,7 +136,35 @@ namespace SDS_Inn_Test
             Assert.AreEqual(expected.SellIn, actual.SellIn);
         }
 
+        [Test]
+        public void ConjuredItem_Day1()
+        {
+            var expected = ConjuredDay1;
+            var actual = (AdvanceDays(ConjuredDay0, 1));
 
+            Assert.AreEqual(expected.Quality, actual.Quality);
+            Assert.AreEqual(expected.SellIn, actual.SellIn);
+        }
+
+        [Test]
+        public void ConjuredItem_Day2()
+        {
+            var expected = ConjuredDay2;
+            var actual = (AdvanceDays(ConjuredDay0, 2));
+
+            Assert.AreEqual(expected.Quality, actual.Quality);
+            Assert.AreEqual(expected.SellIn, actual.SellIn);
+        }
+
+        [Test]
+        public void ConjuredItem_Day5()
+        {
+            var expected = ConjuredDay5;
+            var actual = (AdvanceDays(ConjuredDay0, 5));
+
+            Assert.AreEqual(expected.Quality, actual.Quality);
+            Assert.AreEqual(expected.SellIn, actual.SellIn);
+        }
 
 
         private Item AdvanceDays(Item item, int days)

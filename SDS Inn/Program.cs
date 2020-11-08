@@ -7,11 +7,8 @@ namespace SDS_Inn
         static void Main(string[] args)
         {
 
-            UpdateQuality(Items); // Day 1
-            UpdateQuality(Items); // Day 2
-            UpdateQuality(Items); // Day 3
-            UpdateQuality(Items); // Day 4
-            UpdateQuality(Items); // Day 5
+            UpdateQuality(Items);
+
 
         }
 
