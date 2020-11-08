@@ -1,92 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 
 namespace SDS_Inn
 {
-    public static class Program
+    public static class SdsInn
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
 
-            UpdateQuality();
+            UpdateQuality(Items); // Day 1
+            UpdateQuality(Items); // Day 2
+            UpdateQuality(Items); // Day 3
+            UpdateQuality(Items); // Day 4
+            UpdateQuality(Items); // Day 5
 
         }
 
-        public static void UpdateQuality()
+        public static void UpdateQuality(IList<Item> items)
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage Passes")
-                {
-                    if (Items[i].Quality > 0)
-                    {
-                        if (Items[i].Name != "Sulfuras")
-                        {
-                            Items[i].Quality = Items[i].Quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        Items[i].Quality = Items[i].Quality + 1;
-                        if (Items[i].Name == "Backstage Passes")
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
+                Items[i] = UpdateItemQuality(Items[i]);
+            }
+        }
 
-                        }
-                    }
-                }
-                if (Items[i].Name != "Sulfuras")
+        public static Item UpdateItemQuality(Item item)
+        {
+            if (item.Name != "Aged Brie" && item.Name != "Backstage Passes")
+            {
+                if (item.Quality > 0)
                 {
-                    Items[i].SellIn = Items[i].SellIn - 1;
-                }
-                if (Items[i].SellIn < 0)
-                {
-                    if (Items[i].Name != "Aged Brie")
+                    if (item.Name != "Sulfuras")
                     {
-                        if (Items[i].Name != "Backstage passes")
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != "Sulfuras")
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
+                        item.Quality = item.Quality - 1;
                     }
                 }
             }
+            else //Either Aged Brie or Backstage Passes
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality = item.Quality + 1;
+                    if (item.Name == "Backstage Passes")
+                    {
+                        if (item.SellIn < 11)
+                        {
+                            if (item.Quality < 50)
+                            {
+                                item.Quality = item.Quality + 1;
+                            }
+                        }
+                        if (item.SellIn < 6)
+                        {
+                            if (item.Quality < 50)
+                            {
+                                item.Quality = item.Quality + 1;
+                            }
+                        }
 
+                    }
+                }
+            }
+            if (item.Name != "Sulfuras")
+            {
+                item.SellIn = item.SellIn - 1;
+            }
+            if (item.SellIn < 0)
+            {
+                if (item.Name != "Aged Brie")
+                {
+                    if (item.Name != "Backstage passes")
+                    {
+                        if (item.Quality > 0)
+                        {
+                            if (item.Name != "Sulfuras")
+                            {
+                                item.Quality = item.Quality - 1;
+                            }
+                        }
+                    }
+                    else // Item is Backstage passes
+                    {
+                        item.Quality = item.Quality - item.Quality;
+                    }
+                }
+                else // Item is Aged Brie
+                {
+                    if (item.Quality < 50)
+                    {
+                        item.Quality = item.Quality + 1;
+                    }
+                }
+            }
+            return item;
         }
+
 
         public static IList<Item> Items = new List<Item>
             {
@@ -97,14 +104,5 @@ namespace SDS_Inn
                 new Item { Name = "Backstage passes", SellIn = 15, Quality = 20 },
                 new Item { Name = "Conjured", SellIn = 3, Quality = 6 }
             };
-        
-        public class Item
-        {
-            public string Name { get; set; }
-            public int SellIn { get; set; }
-            public int Quality { get; set; }
-        }
-
-
     }
 }
